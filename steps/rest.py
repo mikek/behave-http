@@ -153,4 +153,3 @@ def json_at_path_inline(context, jsonpath, value):
 def json_at_path(context, jsonpath):
     json_value = json.loads(get_data_from_context(context))
     assert_equal(jpath.get(jsonpath, context.response.json), json_value)
-
