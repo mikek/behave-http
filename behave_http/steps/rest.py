@@ -56,8 +56,9 @@ def poll_GET(context, url_path_segment, jsonpath):
     json_value = json.loads(context.data)
     url = append_path(context.server, url_path_segment)
     for i in range(context.n_attempts):
-        response = requests.get(url, headers=context.headers, auth=context.auth)
-        if jpath.get(jsonpath, response.json) == json_value:
+        response = requests.get(
+            url, headers=context.headers, auth=context.auth)
+        if jpath.get(jsonpath, response.json()) == json_value:
             return
         time.sleep(context.pause_between_attempts)
     raise AssertionError(
@@ -121,7 +122,7 @@ def delete_request(context, url_path_segment):
 @dereference_step_parameters_and_data
 def store_for_template(context, jsonpath, variable):
     context.template_data[variable] = jpath.get(
-        jsonpath, context.response.json)
+        jsonpath, context.response.json())
 
 
 @behave.then('the response status should be "{status}"')
@@ -146,18 +147,18 @@ def check_header_inline(context, var, value):
 @dereference_step_parameters_and_data
 def json_should_be(context):
     json_value = json.loads(context.data)
-    assert_equal(context.response.json, json_value)
+    assert_equal(context.response.json(), json_value)
 
 
 @behave.then('the JSON at path "{jsonpath}" should be {value}')
 @dereference_step_parameters_and_data
 def json_at_path_inline(context, jsonpath, value):
     json_value = json.loads(value)
-    assert_equal(jpath.get(jsonpath, context.response.json), json_value)
+    assert_equal(jpath.get(jsonpath, context.response.json()), json_value)
 
 
 @behave.then('the JSON at path "{jsonpath}" should be')
 @dereference_step_parameters_and_data
 def json_at_path(context, jsonpath):
     json_value = json.loads(context.data)
-    assert_equal(jpath.get(jsonpath, context.response.json), json_value)
+    assert_equal(jpath.get(jsonpath, context.response.json()), json_value)
