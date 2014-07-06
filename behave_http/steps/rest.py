@@ -54,7 +54,7 @@ def set_config(context, variable, value):
 @dereference_step_parameters_and_data
 def poll_GET(context, url_path_segment, jsonpath):
     json_value = json.loads(context.data)
-    url = context.server.add_path_segment(url_path_segment)
+    url = append_path(context.server, url_path_segment)
     for i in range(context.n_attempts):
         response = requests.get(url, headers=context.headers, auth=context.auth)
         if jpath.get(jsonpath, response.json) == json_value:
@@ -67,14 +67,14 @@ def poll_GET(context, url_path_segment, jsonpath):
 @behave.when('I send an OPTIONS request to "{url_path_segment}"')
 @dereference_step_parameters_and_data
 def options_request(context, url_path_segment):
-    context.response = requests.options(
-        context.server.add_path_segment(url_path_segment))
+    url = append_path(context.server, url_path_segment)
+    context.response = requests.options(url)
 
 
 @behave.when('I send a PATCH request to "{url_path_segment}"')
 @dereference_step_parameters_and_data
 def patch_request(context, url_path_segment):
-    url = context.server.add_path_segment(url_path_segment)
+    url = append_path(context.server, url_path_segment)
     context.response = requests.patch(
         url, data=context.data, headers=context.headers, auth=context.auth)
 
@@ -82,7 +82,7 @@ def patch_request(context, url_path_segment):
 @behave.when('I send a PUT request to "{url_path_segment}"')
 @dereference_step_parameters_and_data
 def put_request(context, url_path_segment):
-    url = context.server.add_path_segment(url_path_segment)
+    url = append_path(context.server, url_path_segment)
     context.response = requests.put(
         url, data=context.data, headers=context.headers, auth=context.auth)
 
@@ -90,7 +90,7 @@ def put_request(context, url_path_segment):
 @behave.when('I send a POST request to "{url_path_segment}"')
 @dereference_step_parameters_and_data
 def post_request(context, url_path_segment):
-    url = context.server.add_path_segment(url_path_segment)
+    url = append_path(context.server, url_path_segment)
     context.response = requests.post(
         url, data=context.data, headers=context.headers, auth=context.auth)
 
@@ -104,7 +104,7 @@ def get_request(context, url_path_segment):
         # valid JSON.
         if 'Content-Type' in headers:
             del headers['Content-Type']
-    url = context.server.add_path_segment(url_path_segment)
+    url = append_path(context.server, url_path_segment)
     context.response = requests.get(
         url, data=context.data, headers=headers, auth=context.auth)
 
@@ -112,7 +112,7 @@ def get_request(context, url_path_segment):
 @behave.when('I send a DELETE request to "{url_path_segment}"')
 @dereference_step_parameters_and_data
 def delete_request(context, url_path_segment):
-    url = context.server.add_path_segment(url_path_segment)
+    url = append_path(context.server, url_path_segment)
     context.response = requests.delete(
         url, headers=context.headers, auth=context.auth)
 
