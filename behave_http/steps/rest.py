@@ -1,65 +1,24 @@
 """Reasonably complete set of BDD steps for testing a REST API.
 
 Some state is set-up and shared between steps using the context variable. It is
-reset at the start of every scenario by
-:func:`restapiblueprint.features.environment.before_scenario`
+reset at the start of every scenario by environment.before_scenario.
 
 """
-from nose.tools import assert_equal
 import behave
-import decorator
-import jinja2
 import jpath
 import json
-import os
-import purl
+from nose.tools import assert_equal, assert_in
+from purl import URL
 import requests
 import time
 
-
-def _decode_parameter(value):
-    """Get BDD step parameter, redirecting to env var if start with $."""
-    if value.startswith('$'):
-        return os.environ.get(value[1:], '')
-    else:
-        return value
-
-
-def _get_data_from_context(context):
-    """Use context.text as a template and render against any stored state."""
-    try:
-        data = context.text
-    except AttributeError:
-        data = ''
-    # Always clear the text to avoid accidental re-use.
-    context.text = u''
-    # NB rendering the template always returns unicode.
-    result = jinja2.Template(data).render(context.template_data)
-    return result.encode('utf8')
-
-
-@decorator.decorator
-def dereference_step_parameters_and_data(f, context, *parameters):
-    """Decorator to dereference step parameters and data.
-
-    This involves two parts:
-
-        1) Replacing step parameters with environment variable values if they
-        look like an environment variable (start with a "$").
-
-        2) Treating context.text as a Jinja2 template rendered against
-        context.template_data, and putting the result in context.data.
-
-    """
-    decoded_parameters = map(_decode_parameter, parameters)
-    context.data = _get_data_from_context(context)
-    f(context, *decoded_parameters)
+from behave_http.utils import dereference_step_parameters_and_data, append_path
 
 
 @behave.given('I am using server "{server}"')
 @dereference_step_parameters_and_data
 def using_server(context, server):
-    context.server = purl.URL(server)
+    context.server = URL(server)
 
 
 @behave.given('I set {var} header to "{value}"')
