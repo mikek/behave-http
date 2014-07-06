@@ -2,6 +2,7 @@
 *.pyo
 *.egg-info
 setuptools-*
+*.egg
 /build/
 /dist/
 .coverage*
