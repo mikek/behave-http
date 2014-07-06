@@ -21,12 +21,25 @@ def using_server(context, server):
     context.server = URL(server)
 
 
+@behave.given('I set base URL to "{base_url}"')
+@dereference_step_parameters_and_data
+def set_base_url(context, base_url):
+    context.server = context.server.add_path_segment(base_url)
+
+
 @behave.given('I set {var} header to "{value}"')
 @dereference_step_parameters_and_data
 def set_header(context, var, value):
     # We must keep the headers as implicit ascii to avoid encoding failure when
     # the entire HTTP body is constructed by concatenating strings.
     context.headers[var.encode('ascii')] = value.encode('ascii')
+
+
+@behave.given(
+    'I set BasicAuth username to "{username}" and password to "{password}"')
+@dereference_step_parameters_and_data
+def set_basic_auth_headers(context, username, password):
+    context.auth = (username, password)
 
 
 @behave.given('I use query OAuth with key="{key}" and secret="{secret}"')
@@ -131,6 +144,13 @@ def response_status(context, status):
     assert_equal(context.response.status_code, int(status))
 
 
+@behave.then('the response status should be one of "{statuses}"')
+@dereference_step_parameters_and_data
+def response_status_in(context, statuses):
+    assert_in(context.response.status_code,
+              [int(s) for s in statuses.split(',')])
+
+
 @behave.then('the {var} header should be')
 @dereference_step_parameters_and_data
 def check_header(context, var):
@@ -148,6 +168,13 @@ def check_header_inline(context, var, value):
 def json_should_be(context):
     json_value = json.loads(context.data)
     assert_equal(context.response.json(), json_value)
+
+
+@behave.then('the JSON array length at path "{jsonpath}" should be {value}')
+@dereference_step_parameters_and_data
+def json_array_len_at_path_inline(context, jsonpath, value):
+    length = int(json.loads(value))
+    assert_equal(len(jpath.get(jsonpath, context.response.json())), length)
 
 
 @behave.then('the JSON at path "{jsonpath}" should be {value}')
