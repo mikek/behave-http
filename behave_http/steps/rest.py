@@ -78,6 +78,14 @@ def poll_GET(context, url_path_segment, jsonpath):
         'Condition not met after %d attempts' % context.n_attempts)
 
 
+@behave.when('I send a HEAD request to "{url_path_segment}"')
+@dereference_step_parameters_and_data
+def head_request(context, url_path_segment):
+    url = append_path(context.server, url_path_segment)
+    context.response = requests.head(
+        url, headers=context.headers, auth=context.auth)
+
+
 @behave.when('I send an OPTIONS request to "{url_path_segment}"')
 @dereference_step_parameters_and_data
 def options_request(context, url_path_segment):
