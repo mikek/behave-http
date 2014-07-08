@@ -82,7 +82,8 @@ def poll_GET(context, url_path_segment, jsonpath):
 @dereference_step_parameters_and_data
 def options_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
-    context.response = requests.options(url)
+    context.response = requests.options(
+        url, headers=context.headers, auth=context.auth)
 
 
 @behave.when('I send a PATCH request to "{url_path_segment}"')
