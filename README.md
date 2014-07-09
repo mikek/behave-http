@@ -1,7 +1,7 @@
 # Behave HTTP steps
 
-*A python package with reusable HTTP-service testing steps for [behave][1]
-(behaviour-driven development tool).*
+*A Python package for HTTP-service testing. Contains reusable steps for
+[behave][1] BDD (behaviour-driven development) tool.*
 
 ## Usage
 
