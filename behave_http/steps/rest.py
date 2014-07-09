@@ -94,6 +94,14 @@ def options_request(context, url_path_segment):
         url, headers=context.headers, auth=context.auth)
 
 
+@behave.when('I send a TRACE request to "{url_path_segment}"')
+@dereference_step_parameters_and_data
+def options_request(context, url_path_segment):
+    url = append_path(context.server, url_path_segment)
+    context.response = requests.request(
+        'TRACE', url, headers=context.headers, auth=context.auth)
+
+
 @behave.when('I send a PATCH request to "{url_path_segment}"')
 @dereference_step_parameters_and_data
 def patch_request(context, url_path_segment):
@@ -158,6 +166,12 @@ def response_status(context, status):
 def response_status_in(context, statuses):
     assert_in(context.response.status_code,
               [int(s) for s in statuses.split(',')])
+
+
+@behave.then('the response body should contain "{content}"')
+@dereference_step_parameters_and_data
+def response_status(context, content):
+    assert_in(content, context.response.content)
 
 
 @behave.then('the {var} header should be')
