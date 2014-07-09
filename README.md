@@ -36,7 +36,22 @@ If your test target is *http://127.0.0.1:8081/api* you can test it with:
 
     SERVER=http://127.0.0.1:8081 URL=api behave
 
-See *features* (self testing) directory for some useful examples.
+See *features* (self tests) directory for some useful examples.
+
+## Running tests
+
+Launch a special HTTP server with responding to test requests in a separate
+shell:
+
+    python testserver.py
+
+Then use a custom setup.py command to run tests:
+
+    python setup.py behave_test
+
+or just directly run:
+
+    behave
 
 ## Acknowledgments
 
