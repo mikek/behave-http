@@ -4,6 +4,33 @@ import sys
 
 use_setuptools()
 from setuptools import setup
+from setuptools.command.test import test as TestCommand
+
+# Gotcha: setuptools_behave module is unavailable before 'setup.py install'
+try:
+    from setuptools_behave import behave_test as BehaveTest
+    # Nested gotcha: setuptools_behave is unable to find behave' command.
+    # TODO: make sure it has no side-effects and make a PR.
+    import shlex
+    import subprocess
+
+    class CustomBehaveTest(BehaveTest):
+        def behave(self, path):
+            behave = os.path.join("bin", "behave")
+            if not os.path.exists(behave):
+                behave = "behave"
+            cmd_options = ""
+            if self.tags:
+                cmd_options = "--tags=" + " --tags=".join(self.tags)
+            if self.dry_run:
+                cmd_options += " --dry-run"
+            cmd_options += " --format=%s %s" % (self.format, path)
+            self.announce("CMDLINE: %s %s" % (behave, cmd_options), level=3)
+            return subprocess.call([behave] + shlex.split(cmd_options))
+except ImportError:
+    class CustomBehaveTest(TestCommand):
+        description = "Dummy behave test command used before setup.py install"
+
 
 # Installing pandoc just to convert Markdown to reStructuredText seems to be
 # an overkill. And Markdown has more awesomeness.
@@ -23,14 +50,22 @@ install_requires = [
 
 tests_require = ['flask']
 
+if 'test' in sys.argv:
+    for pkg in tests_require:
+        setup_requires.append(pkg)
+
 setup(
     name='behave-http',
     version='0.0.1',
     packages=['behave_http', 'behave_http.steps'],
     setup_requires=setup_requires,
     install_requires=install_requires,
+    tests_require=tests_require,
     extras_require={
         'testing': tests_require,
+    },
+    cmdclass={
+        'behave_test': CustomBehaveTest,
     },
     description="Behave HTTP steps",
     long_description=long_description,
