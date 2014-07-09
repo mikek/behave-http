@@ -5,5 +5,6 @@ setuptools-*
 *.egg
 /build/
 /dist/
-.coverage*
+.coverage
+htmlcov
 README.html
