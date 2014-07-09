@@ -96,7 +96,7 @@ def options_request(context, url_path_segment):
 
 @behave.when('I send a TRACE request to "{url_path_segment}"')
 @dereference_step_parameters_and_data
-def options_request(context, url_path_segment):
+def trace_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
     context.response = requests.request(
         'TRACE', url, headers=context.headers, auth=context.auth)
@@ -170,7 +170,7 @@ def response_status_in(context, statuses):
 
 @behave.then('the response body should contain "{content}"')
 @dereference_step_parameters_and_data
-def response_status(context, content):
+def response_body_contains(context, content):
     assert_in(content, context.response.content)
 
 
