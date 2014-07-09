@@ -7,7 +7,7 @@ from setuptools import setup
 
 # Installing pandoc just to convert Markdown to reStructuredText seems to be
 # an overkill. And Markdown has more awesomeness.
-long_description=open('README.md', 'r').read()
+long_description = open('README.md', 'r').read()
 
 setup_requires = []
 
@@ -21,7 +21,7 @@ install_requires = [
     'requests>=2.3.0,<2.4',
 ]
 
-tests_require = []
+tests_require = ['flask']
 
 setup(
     name='behave-http',
@@ -38,7 +38,7 @@ setup(
     author='Mikhail Kolesnik',
     author_email='mike@openbunker.org',
     license='BSD 2-Clause',
-    classifiers = [
+    classifiers=[
         'Programming Language :: Python :: 2.7',
         'Development Status :: 4 - Beta',
         'Natural Language :: English',
