@@ -45,13 +45,22 @@ shell:
 
     python testserver.py
 
-Then use a custom setup.py command to run tests:
+Then use `make` to run feature tests:
 
-    python setup.py behave_test
+    make behave-test
 
-or just directly run:
+or just:
 
     behave
+
+### Environment variables
+
+Set *TEST_SERVER* to `full URL` if default port (55080) on localhost is already
+used by another process. For example:
+
+    export TEST_SERVER=http://127.0.0.1:55081
+    python testserver.py &
+    make behave-test
 
 ## Acknowledgments
 
