@@ -9,6 +9,11 @@ if test_server:
     app.config['SERVER_NAME'] = test_server.split('://')[-1]
 
 
+@app.route('/behave-http', methods=['HEAD', 'GET'])
+def test_root():
+    return ''
+
+
 @app.route('/rest/head', methods=['HEAD'])
 def test_head():
     return ''
