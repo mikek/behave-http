@@ -3,9 +3,10 @@ import os
 
 app = Flask(__name__)
 app.config.from_pyfile('testserver.cfg')
-server_name = os.environ.get('SERVER_NAME', None)
-if server_name:
-    app.config['SERVER_NAME'] = server_name
+
+test_server = os.environ.get('TEST_SERVER', None)
+if test_server:
+    app.config['SERVER_NAME'] = test_server.split('://')[-1]
 
 
 @app.route('/rest/head', methods=['HEAD'])
