@@ -39,7 +39,7 @@ lint:
 
 behave-test:
 	test `curl -s -w %{http_code} $(TEST_SERVER)/behave-http` -eq 200
-	python setup.py behave_test
+	python setup.py behave_test --format progress3
 
 #test-all:
 #	tox
