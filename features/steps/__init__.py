@@ -1,1 +1,1 @@
-from behave_http.steps.rest import *  # noqa
+from behave_http.steps import *  # NOQA

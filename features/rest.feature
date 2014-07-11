@@ -1,6 +1,6 @@
-Feature: REST
-  As an imaginary RESTful API client
-  I want to make sure REST steps really work
+Feature: HTTP requests
+  As an imaginary HTTP API client
+  I want to make sure HTTP steps do what they meant to do
 
   Background: Set target server address and headers
     Given I am using server "$TEST_SERVER"
