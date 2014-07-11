@@ -3,6 +3,8 @@
 *A Python package for HTTP-service testing. Contains reusable steps for
 [behave][1] BDD (behaviour-driven development) tool.*
 
+It's mostly useful for testing REST APIs and interacting with JSON data.
+
 ## Usage
 
 *yourapp/features/environment.py*:
@@ -38,10 +40,11 @@ If your test target is *http://127.0.0.1:8081/api* you can test it with:
 
 See *features* (self tests) directory for some useful examples.
 
-## Running tests
+## Development
 
-Launch a special HTTP server with responding to test requests in a separate
-shell:
+### Running tests
+
+Launch a special HTTP server responding to test requests in a separate shell:
 
     python testserver.py
 
@@ -53,10 +56,10 @@ or just:
 
     behave
 
-### Environment variables
+#### Environment variables
 
-Set *TEST_SERVER* to `full URL` if default port (55080) on localhost is already
-used by another process. For example:
+Set *TEST_SERVER* to URL (including schema) if default port (55080) on
+localhost is already used by another process. For example:
 
     export TEST_SERVER=http://127.0.0.1:55081
     python testserver.py &
@@ -64,8 +67,8 @@ used by another process. For example:
 
 ## Acknowledgments
 
-The REST steps code is derived from [rest api blueprint][2], so the whole
-project use the same BSD 2-Clause License (see LICENSE file).
+The REST steps code is initially derived from [rest api blueprint][2], so this
+project inherits the same BSD 2-Clause License (see LICENSE file).
 
 [1]: http://pythonhosted.org/behave/
 [2]: https://bitbucket.org/tcorbettclark/rest-api-blueprint
