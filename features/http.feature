@@ -31,6 +31,38 @@ Feature: HTTP requests
     {"title": "Some title", "nested": {"number": 42}, "array": [1, 2, 3]}
     """
 
+  Scenario: Test JSON path expection
+    When I make a POST request to "post/mirror"
+    """
+    {"nested": {"number": 42}, "array": []}
+    """
+    Then the response status should be "201"
+    And the JSON at path "nested" should be
+    """
+    {"number": 42}
+    """
+
+  Scenario: Test JSON array length calculation
+    When I make a POST request to "post/mirror"
+    """
+    {"array": [1, 2, 3]}
+    """
+    Then the response status should be "201"
+    Then the JSON array length at path "array" should be 3
+
+  Scenario: Test storing item from JSON response in variable
+    When I make a POST request to "post/mirror"
+    """
+    {"title": "Some title", "nested": {"number": 42}, "array": [1, 2, 3]}
+    """
+    Then the response status should be "201"
+    When I store the JSON at path "nested" in "nested"
+    Then the variable nested should be equal to JSON
+    """
+    {"number": 42}
+    """
+    And the variable nested should be equal to JSON {"number": 42}
+
   Scenario: Test OPTIONS request
     When I make an OPTIONS request to "options"
     Then the response status should be "200"
