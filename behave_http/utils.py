@@ -22,10 +22,7 @@ def _render_parameters_with_context(context, params):
 
 def _get_data_from_context(context):
     """Use context.text as a template and render against any stored state."""
-    try:
-        data = context.text if context.text else u''
-    except AttributeError:
-        data = u''
+    data = context.text if context.text else u''
     # Always clear the text to avoid accidental re-use.
     context.text = u''
     # NB rendering the template always returns unicode.
