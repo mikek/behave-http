@@ -13,7 +13,7 @@ It's mostly useful for testing REST APIs and interacting with JSON data.
 
 *yourapp/features/steps/some_http_stuff.py*:
 
-    from behave_http.steps import rest
+    from behave_http.steps import *
 
 (You can mix them with your own steps in the same file.)
 
