@@ -212,3 +212,15 @@ def json_at_path_inline(context, jsonpath, value):
 def json_at_path(context, jsonpath):
     json_value = json.loads(context.data)
     assert_equal(jpath.get(jsonpath, context.response.json()), json_value)
+
+
+@behave.then('the variable {variable} should be equal to JSON')
+@dereference_step_parameters_and_data
+def get_context_var_value(context, variable):
+    assert_equal(context.template_data[variable], json.loads(context.data))
+
+
+@behave.then('the variable {variable} should be equal to JSON {value}')
+@dereference_step_parameters_and_data
+def get_context_var_value(context, variable, value):
+    assert_equal(context.template_data[variable], json.loads(value))
