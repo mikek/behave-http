@@ -101,3 +101,7 @@ Feature: HTTP requests
     """
     {"foo": "Some foo", "bar": "chocolate"}
     """
+
+  Scenario: Test multiple expected response statuses
+    When I make a HEAD request to "head"
+    Then the response status should be one of "200, 204"
