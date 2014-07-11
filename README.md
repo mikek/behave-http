@@ -31,7 +31,7 @@ It's mostly useful for testing REST APIs and interacting with JSON data.
         And I set BasicAuth username to "ft@example.com" and password to "ft"
 
       Scenario: Ensure account exists
-        When I send a GET request to "account"
+        When I make a GET request to "account"
         Then the response status should be "200
 
 If your test target is *http://127.0.0.1:8081/api* you can test it with:
@@ -58,7 +58,7 @@ or just:
 
 #### Environment variables
 
-Set *TEST_SERVER* to URL (including schema) if default port (55080) on
+Set *TEST_SERVER* to full URL (including schema) if default port (55080) on
 localhost is already used by another process. For example:
 
     export TEST_SERVER=http://127.0.0.1:55081

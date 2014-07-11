@@ -9,15 +9,15 @@ Feature: HTTP requests
     And I set Content-Type header to "application/json"
 
   Scenario: Test HEAD request
-    When I send a HEAD request to "head"
+    When I make a HEAD request to "head"
     Then the response status should be "200"
 
   Scenario: Test GET request
-    When I send a GET request to "get"
+    When I make a GET request to "get"
     Then the response status should be "200"
 
   Scenario: Test POST request by checking we get the same JSON payload back
-    When I send a POST request to "post"
+    When I make a POST request to "post"
     """
     {"title": "Some title", "number": 42}
     """
@@ -28,12 +28,12 @@ Feature: HTTP requests
     """
 
   Scenario: Test OPTIONS request
-    When I send an OPTIONS request to "options"
+    When I make an OPTIONS request to "options"
     Then the response status should be "200"
     And the Allow header should be "HEAD, GET, OPTIONS"
 
   Scenario: Test PUT request by checking we get the same revision back
-    When I send a PUT request to "put"
+    When I make a PUT request to "put"
     """
     {"rev": 2, "id": "foo"}
     """
@@ -41,7 +41,7 @@ Feature: HTTP requests
     And the JSON at path "rev" should be 2
 
   Scenario: Test PATCH request
-    When I send a PATCH request to "patch"
+    When I make a PATCH request to "patch"
     """
     {"rev": 1}
     """
@@ -49,17 +49,17 @@ Feature: HTTP requests
     And the JSON at path "rev" should be 1
 
   Scenario: Test DELETE request
-    When I send a DELETE request to "delete"
+    When I make a DELETE request to "delete"
     Then the response status should be "204"
 
   Scenario: Test TRACE request
     Given I set X-Foo header to "bar"
-    When I send a TRACE request to "trace"
+    When I make a TRACE request to "trace"
     Then the response status should be "200"
     And the response body should contain "X-Foo: bar"
 
   Scenario: Test GET request to URL with query string
-    When I send a GET request to "get/args?foo=Some foo&bar=chocolate"
+    When I make a GET request to "get/args?foo=Some foo&bar=chocolate"
     Then the response status should be "200"
     And the JSON should be
     """

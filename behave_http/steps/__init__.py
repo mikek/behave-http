@@ -78,7 +78,7 @@ def poll_GET(context, url_path_segment, jsonpath):
         'Condition not met after %d attempts' % context.n_attempts)
 
 
-@behave.when('I send a HEAD request to "{url_path_segment}"')
+@behave.when('I make a HEAD request to "{url_path_segment}"')
 @dereference_step_parameters_and_data
 def head_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
@@ -86,7 +86,7 @@ def head_request(context, url_path_segment):
         url, headers=context.headers, auth=context.auth)
 
 
-@behave.when('I send an OPTIONS request to "{url_path_segment}"')
+@behave.when('I make an OPTIONS request to "{url_path_segment}"')
 @dereference_step_parameters_and_data
 def options_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
@@ -94,7 +94,7 @@ def options_request(context, url_path_segment):
         url, headers=context.headers, auth=context.auth)
 
 
-@behave.when('I send a TRACE request to "{url_path_segment}"')
+@behave.when('I make a TRACE request to "{url_path_segment}"')
 @dereference_step_parameters_and_data
 def trace_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
@@ -102,7 +102,7 @@ def trace_request(context, url_path_segment):
         'TRACE', url, headers=context.headers, auth=context.auth)
 
 
-@behave.when('I send a PATCH request to "{url_path_segment}"')
+@behave.when('I make a PATCH request to "{url_path_segment}"')
 @dereference_step_parameters_and_data
 def patch_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
@@ -110,7 +110,7 @@ def patch_request(context, url_path_segment):
         url, data=context.data, headers=context.headers, auth=context.auth)
 
 
-@behave.when('I send a PUT request to "{url_path_segment}"')
+@behave.when('I make a PUT request to "{url_path_segment}"')
 @dereference_step_parameters_and_data
 def put_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
@@ -118,7 +118,7 @@ def put_request(context, url_path_segment):
         url, data=context.data, headers=context.headers, auth=context.auth)
 
 
-@behave.when('I send a POST request to "{url_path_segment}"')
+@behave.when('I make a POST request to "{url_path_segment}"')
 @dereference_step_parameters_and_data
 def post_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
@@ -126,7 +126,7 @@ def post_request(context, url_path_segment):
         url, data=context.data, headers=context.headers, auth=context.auth)
 
 
-@behave.when('I send a GET request to "{url_path_segment}"')
+@behave.when('I make a GET request to "{url_path_segment}"')
 @dereference_step_parameters_and_data
 def get_request(context, url_path_segment):
     headers = context.headers.copy()
@@ -140,7 +140,7 @@ def get_request(context, url_path_segment):
         url, data=context.data, headers=headers, auth=context.auth)
 
 
-@behave.when('I send a DELETE request to "{url_path_segment}"')
+@behave.when('I make a DELETE request to "{url_path_segment}"')
 @dereference_step_parameters_and_data
 def delete_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
