@@ -26,6 +26,11 @@ def rest_get():
 
 @app.route('/test/post', methods=['POST'])
 def rest_post():
+    return make_response('', 204)
+
+
+@app.route('/test/post/mirror', methods=['POST'])
+def rest_post_mirror():
     return make_response(jsonify(request.get_json()), 201)
 
 

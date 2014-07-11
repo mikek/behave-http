@@ -16,15 +16,19 @@ Feature: HTTP requests
     When I make a GET request to "get"
     Then the response status should be "200"
 
-  Scenario: Test POST request by checking we get the same JSON payload back
+  Scenario: Test POST request
     When I make a POST request to "post"
+    Then the response status should be "204"
+
+  Scenario: Test POST request by checking we get the same JSON payload back
+    When I make a POST request to "post/mirror"
     """
-    {"title": "Some title", "number": 42}
+    {"title": "Some title", "nested": {"number": 42}, "array": [1, 2, 3]}
     """
     Then the response status should be "201"
     And the JSON should be
     """
-    {"title": "Some title", "number": 42}
+    {"title": "Some title", "nested": {"number": 42}, "array": [1, 2, 3]}
     """
 
   Scenario: Test OPTIONS request
