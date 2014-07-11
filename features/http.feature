@@ -62,6 +62,12 @@ Feature: HTTP requests
     {"number": 42}
     """
     And the variable "nested" should be equal to JSON {"number": 42}
+    When I store the JSON at path "nested.number" in "number"
+    Then the variable "number" should be equal to JSON 42
+    When I store the JSON at path "title" in "title"
+    Then the variable "title" should be equal to JSON "Some title"
+    When I store the JSON at path "array" in "array"
+    Then the variable "array" should be equal to JSON [1, 2, 3]
 
   Scenario: Test OPTIONS request
     When I make an OPTIONS request to "options"
