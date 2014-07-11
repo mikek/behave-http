@@ -27,7 +27,7 @@ def set_base_url(context, base_url):
     context.server = context.server.add_path_segment(base_url)
 
 
-@behave.given('I set {var} header to "{value}"')
+@behave.given('I set "{var}" header to "{value}"')
 @dereference_step_parameters_and_data
 def set_header(context, var, value):
     # We must keep the headers as implicit ascii to avoid encoding failure when
@@ -58,7 +58,7 @@ def header_oauth(context, key, secret):
 
 @behave.given('I set context "{variable}" to {value}')
 @dereference_step_parameters_and_data
-def set_config(context, variable, value):
+def set_var(context, variable, value):
     setattr(context, variable, json.loads(value))
 
 
@@ -155,17 +155,17 @@ def store_for_template(context, jsonpath, variable):
         jsonpath, context.response.json())
 
 
-@behave.then('the response status should be "{status}"')
-@dereference_step_parameters_and_data
-def response_status(context, status):
-    assert_equal(context.response.status_code, int(status))
-
-
 @behave.then('the response status should be one of "{statuses}"')
 @dereference_step_parameters_and_data
 def response_status_in(context, statuses):
     assert_in(context.response.status_code,
               [int(s) for s in statuses.split(',')])
+
+
+@behave.then('the response status should be {status}')
+@dereference_step_parameters_and_data
+def response_status(context, status):
+    assert_equal(context.response.status_code, int(status))
 
 
 @behave.then('the response body should contain "{content}"')
@@ -174,13 +174,13 @@ def response_body_contains(context, content):
     assert_in(content, context.response.content)
 
 
-@behave.then('the {var} header should be')
+@behave.then('the "{var}" header should be')
 @dereference_step_parameters_and_data
 def check_header(context, var):
     assert_equal(context.response.headers[var], context.data.encode('ascii'))
 
 
-@behave.then('the {var} header should be "{value}"')
+@behave.then('the "{var}" header should be "{value}"')
 @dereference_step_parameters_and_data
 def check_header_inline(context, var, value):
     assert_equal(context.response.headers[var], value.encode('ascii'))
@@ -214,13 +214,13 @@ def json_at_path(context, jsonpath):
     assert_equal(jpath.get(jsonpath, context.response.json()), json_value)
 
 
-@behave.then('the variable {variable} should be equal to JSON')
+@behave.then('the variable "{variable}" should be equal to JSON')
 @dereference_step_parameters_and_data
 def get_context_var_value(context, variable):
     assert_equal(context.template_data[variable], json.loads(context.data))
 
 
-@behave.then('the variable {variable} should be equal to JSON {value}')
+@behave.then('the variable "{variable}" should be equal to JSON {value}')
 @dereference_step_parameters_and_data
 def get_context_var_value(context, variable, value):
     assert_equal(context.template_data[variable], json.loads(value))

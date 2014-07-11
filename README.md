@@ -32,11 +32,16 @@ It's mostly useful for testing REST APIs and interacting with JSON data.
 
       Scenario: Ensure account exists
         When I make a GET request to "account"
-        Then the response status should be "200
+        Then the response status should be 200
 
 If your test target is *http://127.0.0.1:8081/api* you can test it with:
 
     SERVER=http://127.0.0.1:8081 URL=api behave
+
+General rules on using quoted `"values"` in feature files:
+
+ * JSONs and numbers (response code, array length) must appear as is.
+ * Other substitutes must be quoted (variable names, headers and their values).
 
 See *features* (self tests) directory for some useful examples.
 
