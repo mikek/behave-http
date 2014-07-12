@@ -115,3 +115,10 @@ Feature: HTTP requests
   Scenario: Test multiple expected response statuses
     When I make a HEAD request to "head"
     Then the response status should be one of "200, 204"
+
+  Scenario: Test GET polling
+    When I keep sending GET requests to "get/poll" until JSON at path "counter" is
+    """
+    0
+    """
+    Then the response status should be 200

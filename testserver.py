@@ -71,5 +71,17 @@ def test_get_args_to_json():
     return resp
 
 
+_poll_counter = 3
+@app.route('/test/get/poll', methods=['GET'])
+def test_get_poll():
+    global _poll_counter
+    if not _poll_counter > 0:
+        _poll_counter = 3
+    else:
+        _poll_counter -= 1
+    resp = dict(counter=_poll_counter)
+    return make_response(jsonify(resp))
+
+
 if __name__ == '__main__':
     app.run()
