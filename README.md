@@ -1,9 +1,8 @@
-# Behave HTTP steps
+# BDD HTTP steps implementation for Behave
 
 *A Python package for HTTP-service testing. Contains reusable steps for
-[behave][1] BDD (behaviour-driven development) tool.*
-
-It's mostly useful for testing REST APIs and interacting with JSON data.
+[behave][1] BDD (behaviour-driven development) tool. It's mostly useful for
+testing REST APIs and interacting with JSON data.*
 
 ## Usage
 
@@ -26,8 +25,8 @@ It's mostly useful for testing REST APIs and interacting with JSON data.
       Background: Set server name, headers and reset test user's database
         Given I am using server "$SERVER"
         And I set base URL to "$URL"
-        And I set Accept header to "application/json"
-        And I set Content-Type header to "application/json"
+        And I set "Accept" header to "application/json"
+        And I set "Content-Type" header to "application/json"
         And I set BasicAuth username to "ft@example.com" and password to "ft"
 
       Scenario: Ensure account exists
@@ -43,7 +42,8 @@ General rules on using quoted `"values"` in feature files:
  * JSONs and numbers (response code, array length) must appear as is.
  * Other substitutes must be quoted (variable names, headers and their values).
 
-See *features* (self tests) directory for some useful examples.
+While there is no extensive documentation the *features* (self tests) directory
+contains (a hopefully complete) set of usage examples.
 
 ## Development
 
