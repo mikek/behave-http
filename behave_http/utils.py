@@ -36,7 +36,7 @@ def dereference_step_parameters_and_data(f, context, *params):
 
     This involves three steps:
 
-        1) Rendering feature file step parameters a Jinja2 template against
+        1) Rendering feature file step parameters as a Jinja2 template against
         context.template_data.
 
         2) Replacing step parameters with environment variable values if they

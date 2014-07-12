@@ -12,7 +12,6 @@ Feature: HTTP requests
     Given I set variable "foo" to "foo"
     Then the variable "foo" should be "foo"
 
-
   Scenario: Test HEAD request
     When I make a HEAD request to "head"
     Then the response status should be 200
