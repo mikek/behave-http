@@ -21,7 +21,7 @@ Feature: HTTP requests
     Then the response status should be 204
 
   Scenario: Test POST request by checking we get the same JSON payload back
-    When I make a POST request to "post/mirror"
+    When I make a POST request to "post/mirror/json"
     """
     {"title": "Some title", "nested": {"number": 42}, "array": [1, 2, 3]}
     """
@@ -32,7 +32,7 @@ Feature: HTTP requests
     """
 
   Scenario: Test JSON path expection
-    When I make a POST request to "post/mirror"
+    When I make a POST request to "post/mirror/json"
     """
     {"nested": {"number": 42}, "array": []}
     """
@@ -43,7 +43,7 @@ Feature: HTTP requests
     """
 
   Scenario: Test JSON array length calculation
-    When I make a POST request to "post/mirror"
+    When I make a POST request to "post/mirror/json"
     """
     {"array": [1, 2, 3]}
     """
@@ -51,7 +51,7 @@ Feature: HTTP requests
     Then the JSON array length at path "array" should be 3
 
   Scenario: Test storing item from JSON response in variable
-    When I make a POST request to "post/mirror"
+    When I make a POST request to "post/mirror/json"
     """
     {"title": "Some title", "nested": {"number": 42}, "array": [1, 2, 3]}
     """
@@ -75,7 +75,7 @@ Feature: HTTP requests
     And the "Allow" header should be "HEAD, GET, OPTIONS"
 
   Scenario: Test PUT request by checking we get the same revision back
-    When I make a PUT request to "put"
+    When I make a PUT request to "put/json"
     """
     {"rev": 2, "id": "foo"}
     """
@@ -83,7 +83,7 @@ Feature: HTTP requests
     And the JSON at path "rev" should be 2
 
   Scenario: Test PATCH request
-    When I make a PATCH request to "patch"
+    When I make a PATCH request to "patch/json"
     """
     {"rev": 1}
     """
@@ -101,7 +101,7 @@ Feature: HTTP requests
     And the response body should contain "X-Foo: bar"
 
   Scenario: Test GET request to URL with query string
-    When I make a GET request to "get/args?foo=Some foo&bar=chocolate"
+    When I make a GET request to "get/args-to-json?foo=Some foo&bar=chocolate"
     Then the response status should be 200
     And the JSON should be
     """

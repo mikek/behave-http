@@ -10,7 +10,7 @@ if test_server:
 
 
 @app.route('/behave-http', methods=['HEAD', 'GET'])
-def test_root():
+def test_i_am_a_testserver():
     return ''
 
 
@@ -20,44 +20,44 @@ def test_head():
 
 
 @app.route('/test/get', methods=['GET'])
-def rest_get():
+def test_get():
     return make_response(jsonify({}))
 
 
 @app.route('/test/post', methods=['POST'])
-def rest_post():
+def test_post():
     return make_response('', 204)
 
 
-@app.route('/test/post/mirror', methods=['POST'])
-def rest_post_mirror():
+@app.route('/test/post/mirror/json', methods=['POST'])
+def test_post_json_mirror():
     return make_response(jsonify(request.get_json()), 201)
 
 
 @app.route('/test/options', methods=['OPTIONS'])
-def rest_options():
+def test_options():
     resp = make_response('', 200)
     resp.headers['Allow'] = 'HEAD, GET, OPTIONS'
     return resp
 
 
-@app.route('/test/put', methods=['PUT'])
-def rest_put():
+@app.route('/test/put/json', methods=['PUT'])
+def test_put_json():
     return make_response(jsonify(request.get_json()), 200)
 
 
-@app.route('/test/patch', methods=['PATCH'])
-def rest_patch():
+@app.route('/test/patch/json', methods=['PATCH'])
+def test_patch_json():
     return make_response(jsonify(request.get_json()), 200)
 
 
 @app.route('/test/delete', methods=['DELETE'])
-def rest_delete():
+def test_delete():
     return make_response('', 204)
 
 
 @app.route('/test/trace', methods=['TRACE'])
-def rest_trace():
+def test_trace():
     body = '\n'.join(
         ['{0}: {1}'.format(h, v) for h, v in request.headers.items()])
     resp = make_response(body, 200)
@@ -65,8 +65,8 @@ def rest_trace():
     return resp
 
 
-@app.route('/test/get/args', methods=['GET'])
-def test_get_args():
+@app.route('/test/get/args-to-json', methods=['GET'])
+def test_get_args_to_json():
     resp = make_response(jsonify(request.args.to_dict(flat=True)))
     return resp
 
