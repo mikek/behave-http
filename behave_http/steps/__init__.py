@@ -168,12 +168,6 @@ def response_body_contains(context, content):
     assert_in(content, context.response.content)
 
 
-@behave.then('the "{var}" header should be')
-@dereference_step_parameters_and_data
-def check_header(context, var):
-    assert_equal(context.response.headers[var], context.data.encode('ascii'))
-
-
 @behave.then('the "{var}" header should be "{value}"')
 @dereference_step_parameters_and_data
 def check_header_inline(context, var, value):
