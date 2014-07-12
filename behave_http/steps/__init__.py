@@ -63,7 +63,8 @@ def set_var(context, variable, value):
 
 
 @behave.when(
-    'I poll GET "{url_path_segment}" until JSON at path "{jsonpath}" is')
+    'I keep sending GET requests to "{url_path_segment}" until JSON at path '
+    '"{jsonpath}" is')
 @dereference_step_parameters_and_data
 def poll_GET(context, url_path_segment, jsonpath):
     json_value = json.loads(context.data)
@@ -72,6 +73,7 @@ def poll_GET(context, url_path_segment, jsonpath):
         response = requests.get(
             url, headers=context.headers, auth=context.auth)
         if jpath.get(jsonpath, response.json()) == json_value:
+            context.response = response
             return
         time.sleep(context.pause_between_attempts)
     raise AssertionError(
