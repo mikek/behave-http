@@ -129,15 +129,9 @@ def post_request(context, url_path_segment):
 @behave.when('I make a GET request to "{url_path_segment}"')
 @dereference_step_parameters_and_data
 def get_request(context, url_path_segment):
-    headers = context.headers.copy()
-    if not context.data:
-        # Don't set the Content-Type if we have no data because no data is not
-        # valid JSON.
-        if 'Content-Type' in headers:
-            del headers['Content-Type']
     url = append_path(context.server, url_path_segment)
     context.response = requests.get(
-        url, data=context.data, headers=headers, auth=context.auth)
+        url, headers=context.headers, auth=context.auth)
 
 
 @behave.when('I make a DELETE request to "{url_path_segment}"')
