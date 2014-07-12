@@ -56,7 +56,7 @@ def header_oauth(context, key, secret):
         key, secret, signature_type='auth_header')
 
 
-@behave.given('I set context "{variable}" to {value}')
+@behave.given('I set variable "{variable}" to {value}')
 @dereference_step_parameters_and_data
 def set_var(context, variable, value):
     setattr(context, variable, json.loads(value))
@@ -147,6 +147,12 @@ def delete_request(context, url_path_segment):
 def store_for_template(context, jsonpath, variable):
     context.template_data[variable] = jpath.get(
         jsonpath, context.response.json())
+
+
+@behave.then('the variable "{variable}" should be "{value}"')
+@dereference_step_parameters_and_data
+def get_var(context, variable, value):
+    assert_equal(getattr(context, variable), value)
 
 
 @behave.then('the response status should be one of "{statuses}"')

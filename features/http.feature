@@ -8,6 +8,11 @@ Feature: HTTP requests
     And I set "Accept" header to "application/json"
     And I set "Content-Type" header to "application/json"
 
+  Scenario: Test getting context variable
+    Given I set variable "foo" to "foo"
+    Then the variable "foo" should be "foo"
+
+
   Scenario: Test HEAD request
     When I make a HEAD request to "head"
     Then the response status should be 200
