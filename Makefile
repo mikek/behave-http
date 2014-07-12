@@ -45,7 +45,7 @@ behave-test:
 #	tox
 
 coverage:
-	COVERAGE_PROCESS_START="yep" coverage run --source='behave_http' $(BEHAVE) -q -f progress
+	COVERAGE_PROCESS_START="yep" coverage run --branch --source='behave_http' $(BEHAVE) -q -f progress
 	coverage report -m
 	coverage html
 #	open htmlcov/index.html
