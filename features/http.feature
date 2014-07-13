@@ -122,3 +122,8 @@ Feature: HTTP requests
     0
     """
     Then the response status should be 200
+
+  Scenario: Test Basic Auth
+    Given I set BasicAuth username to "test-user" and password to "test-password"
+    When I make a GET request to "get/basic-auth"
+    Then the response status should be 200

@@ -83,5 +83,13 @@ def test_get_poll():
     return make_response(jsonify(resp))
 
 
+@app.route('/test/get/basic-auth', methods=['GET'])
+def test_basic_auth():
+    if (request.authorization.username == 'test-user' and
+            request.authorization.password == 'test-password'):
+        return make_response('', 200)
+    return make_response('', 401)
+
+
 if __name__ == '__main__':
     app.run()
