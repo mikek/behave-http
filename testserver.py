@@ -72,6 +72,8 @@ def test_get_args_to_json():
 
 
 _poll_counter = 3
+
+
 @app.route('/test/get/poll', methods=['GET'])
 def test_get_poll():
     global _poll_counter

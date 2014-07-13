@@ -77,7 +77,8 @@ def poll_GET(context, url_path_segment, jsonpath):
             return
         time.sleep(context.pause_between_attempts)
     raise AssertionError(
-        'Condition not met after %d attempts' % context.n_attempts) # pragma: no cover
+        'Condition not met after %d attempts' %
+        context.n_attempts)  # pragma: no cover
 
 
 @behave.when('I make a HEAD request to "{url_path_segment}"')
