@@ -116,7 +116,7 @@ Feature: HTTP requests
     When I make a HEAD request to "head"
     Then the response status should be one of "200, 204"
 
-  Scenario: Test GET polling
+  Scenario: Test GET polling with checking for value that eventually succeeds
     When I keep sending GET requests to "get/poll" until JSON at path "counter" is
     """
     0
