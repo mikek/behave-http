@@ -6,8 +6,8 @@ def before_scenario(context, scenario):
     context.template_data = {}
 
     # Default repeat attempt counts and delay for polling GET.
-    context.n_attempts = 20
-    context.pause_between_attempts = 0.1
+    context.n_attempts = 10
+    context.pause_between_attempts = 0.05
 
     # Do not authenticate by dafault
     context.auth = None
