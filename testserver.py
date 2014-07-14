@@ -8,6 +8,9 @@ test_server = os.environ.get('TEST_SERVER', None)
 if test_server:
     app.config['SERVER_NAME'] = test_server.split('://')[-1]
 
+# A global to store state between GET polling requests
+_poll_counter = 3
+
 
 @app.route('/behave-http', methods=['HEAD', 'GET'])
 def test_i_am_a_testserver():
@@ -69,9 +72,6 @@ def test_trace():
 def test_get_args_to_json():
     resp = make_response(jsonify(request.args.to_dict(flat=True)))
     return resp
-
-
-_poll_counter = 3
 
 
 @app.route('/test/get/poll', methods=['GET'])
