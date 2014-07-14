@@ -50,10 +50,6 @@ install_requires = [
 
 tests_require = ['flask']
 
-if 'test' in sys.argv:
-    for pkg in tests_require:
-        setup_requires.append(pkg)
-
 setup(
     name='behave-http',
     version='0.0.1',
