@@ -38,7 +38,7 @@ lint:
 	flake8 behave_http features setup.py testserver.py
 
 behave-test:
-	test `curl -s -w %{http_code} $(TEST_SERVER)/behave-http` -eq 200
+	curl -w "Response code: %{http_code}\n" 127.0.0.1:55080/behave-http
 	python setup.py behave_test --format progress3
 
 #test-all:
