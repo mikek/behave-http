@@ -1,0 +1,13 @@
+# Requirements to use in a development virtual environment
+
+# Explicit package index URL
+--index-url https://pypi.python.org/simple/
+
+# Specific packages which differ from setup.py
+#-e https://github.com/foo/bar.git#egg=bar
+
+# Install what is needed for running tests
+flask
+
+# Install the package itself with all it's deps listed in setup.py
+-e .
