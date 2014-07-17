@@ -1,7 +1,6 @@
 # Adopted from https://github.com/audreyr/cookiecutter-pypackage
 
 TEST_SERVER ?= "http://127.0.0.1:55080"
-BEHAVE := $(shell which behave)
 
 .PHONY: clean-pyc clean-build clean
 
@@ -45,6 +44,7 @@ behave-test:
 #	tox
 
 coverage:
+	BEHAVE := $(shell which behave)
 	COVERAGE_PROCESS_START="yep" coverage run --branch --source='behave_http' $(BEHAVE) -q -f progress
 	coverage report -m
 	coverage html
