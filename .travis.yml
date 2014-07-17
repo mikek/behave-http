@@ -7,6 +7,10 @@ install:
   - pip install --upgrade setuptools
   - pip install -r requirements_dev.txt
 
-before_script: python testserver.py &
+before_script:
+  - python testserver.py >testserver.log 2>&1 &
+  - sleep 3 # allow testserver to start
 
 script: make behave-test
+
+after_failure: cat testserver.log
