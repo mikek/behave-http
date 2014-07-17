@@ -9,4 +9,4 @@ install:
 
 before_script: python testserver.py &
 
-script: make behave-test
+script: sleep 3 && make behave-test
