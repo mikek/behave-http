@@ -6,11 +6,14 @@ python:
 install:
   - pip install --upgrade setuptools
   - pip install -r requirements_dev.txt
+  - pip install coveralls
 
 before_script:
   - python testserver.py >testserver.log 2>&1 &
   - sleep 3 # allow testserver to start
 
-script: make behave-test
+script: make test-coverage
 
 after_failure: cat testserver.log
+
+after_success: coveralls

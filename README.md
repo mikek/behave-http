@@ -49,6 +49,13 @@ contains (a hopefully complete) set of usage examples.
 
 ## Development
 
+Check out `requirements_dev.txt`. At least be sure to install Flask. Optional
+pip-installable development tools:
+
+ * flake8
+ * coverage
+ * coveralls
+
 ### Running tests
 
 Launch a special HTTP server responding to test requests in a separate shell:
@@ -57,7 +64,7 @@ Launch a special HTTP server responding to test requests in a separate shell:
 
 Then use `make` to run feature tests:
 
-    make behave-test
+    make test
 
 or just:
 
@@ -69,8 +76,8 @@ Set *TEST_SERVER* to full URL (including schema) if default port (55080) on
 localhost is already used by another process. For example:
 
     export TEST_SERVER=http://127.0.0.1:55081
-    python testserver.py &
-    make behave-test
+    python testserver.py >testserver.log 2>&1 &
+    make test-coverage
 
 ## Acknowledgments
 
