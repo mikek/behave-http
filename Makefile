@@ -20,6 +20,7 @@ help:
 clean: clean-build clean-pyc
 	rm -fr htmlcov/
 	rm -f .coverage
+	rm -fr .tox
 
 clean-build:
 	rm -fr build/
