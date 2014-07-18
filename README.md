@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/mikek/behave-http.svg?branch=master)](https://travis-ci.org/mikek/behave-http)
 
+[![Coverage Status](https://img.shields.io/coveralls/mikek/behave-http.svg)](https://coveralls.io/r/mikek/behave-http?branch=master)
+
 *A Python package for HTTP-service testing. Contains reusable steps for
 [behave][1] BDD (behaviour-driven development) tool. It's mostly useful for
 testing REST APIs and interacting with JSON data.*
