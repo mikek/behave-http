@@ -57,20 +57,18 @@ pip-installable development tools:
  * flake8
  * coverage
  * coveralls
+ * tox
 
 ### Running tests
 
-Launch a special HTTP server responding to test requests in a separate shell:
+Launch a special HTTP server responding to test requests:
 
     python testserver.py
 
-Then use `make` to run feature tests:
+Then run feature tests in a separate shell:
 
-    make test
-
-or just:
-
-    behave
+    make test-all # runs on every supported python version with tox
+    make test     # runs in current python environment only
 
 #### Environment variables
 
