@@ -1,5 +1,9 @@
 # BDD HTTP steps implementation for Behave
 
+[![Build Status](https://travis-ci.org/mikek/behave-http.svg?branch=master)](https://travis-ci.org/mikek/behave-http)
+
+[![Coverage Status](https://img.shields.io/coveralls/mikek/behave-http.svg)](https://coveralls.io/r/mikek/behave-http?branch=master)
+
 *A Python package for HTTP-service testing. Contains reusable steps for
 [behave][1] BDD (behaviour-driven development) tool. It's mostly useful for
 testing REST APIs and interacting with JSON data.*
@@ -47,19 +51,24 @@ contains (a hopefully complete) set of usage examples.
 
 ## Development
 
+Check out `requirements_dev.txt`. At least be sure to install Flask. Optional
+pip-installable development tools:
+
+ * flake8
+ * coverage
+ * coveralls
+ * tox
+
 ### Running tests
 
-Launch a special HTTP server responding to test requests in a separate shell:
+Launch a special HTTP server responding to test requests:
 
     python testserver.py
 
-Then use `make` to run feature tests:
+Then run feature tests in a separate shell:
 
-    make behave-test
-
-or just:
-
-    behave
+    make test-all # runs on every supported python version with tox
+    make test     # runs in current python environment only
 
 #### Environment variables
 
@@ -67,8 +76,8 @@ Set *TEST_SERVER* to full URL (including schema) if default port (55080) on
 localhost is already used by another process. For example:
 
     export TEST_SERVER=http://127.0.0.1:55081
-    python testserver.py &
-    make behave-test
+    python testserver.py >testserver.log 2>&1 &
+    make test-coverage
 
 ## Acknowledgments
 

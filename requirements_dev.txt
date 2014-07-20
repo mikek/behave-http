@@ -8,6 +8,7 @@
 
 # Install what is needed for running tests
 flask
+tox
 
 # Install the package itself with all it's deps listed in setup.py
 -e .

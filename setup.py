@@ -1,15 +1,12 @@
-from ez_setup import use_setuptools
 import os
-import sys
 
-use_setuptools()
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
 # Gotcha: setuptools_behave module is unavailable before 'setup.py install'
 try:
     from setuptools_behave import behave_test as BehaveTest
-    # Nested gotcha: setuptools_behave is unable to find behave' command.
+    # Nested gotcha: setuptools_behave is unable to find 'behave' command.
     # TODO: make sure it has no side-effects and make a PR.
     import shlex
     import subprocess
@@ -43,11 +40,12 @@ install_requires = [
     'decorator>=3.4.0',
     'Jinja2==2.6',
     'jpath==1.2',
-    'nose==1.2.1',
+    'ensure>=0.2.1',
     'purl>=0.8',
     'requests>=2.3.0,<2.4',
 ]
 
+# Flask is required for running test webserver
 tests_require = ['flask']
 
 setup(

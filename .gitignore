@@ -3,6 +3,7 @@
 *.egg-info
 setuptools-*
 *.egg
+.tox/
 /build/
 /dist/
 .coverage

@@ -1,7 +1,6 @@
 # Adopted from https://github.com/audreyr/cookiecutter-pypackage
 
 TEST_SERVER ?= "http://127.0.0.1:55080"
-BEHAVE := $(shell which behave)
 
 .PHONY: clean-pyc clean-build clean
 
@@ -10,10 +9,10 @@ help:
 	@echo "clean-pyc - remove Python file artifacts"
 	@echo "clean - two above and coverage reports"
 	@echo "lint - check style with flake8"
-#	@echo "test - run tests quickly with the default Python"
-#	@echo "test-all - run tests on every Python version with tox"
-	@echo "behave-test - run feature tests with the default Python"
-	@echo "coverage - check code coverage quickly with the default Python"
+	@echo "test - run tests quickly with the default Python"
+	@echo "test-all - run tests on every Python version with tox"
+	@echo "test-coverage - check code coverage while running tests with the default Python"
+	@echo "coverage - run 'test-coverage', show report and generate html"
 	@echo "docs - generate README.HTML from README.md"
 	@echo "release - package and upload a release"
 	@echo "dist - package"
@@ -21,6 +20,7 @@ help:
 clean: clean-build clean-pyc
 	rm -fr htmlcov/
 	rm -f .coverage
+	rm -fr .tox
 
 clean-build:
 	rm -fr build/
@@ -37,25 +37,37 @@ clean-pyc:
 lint:
 	flake8 behave_http features setup.py testserver.py
 
-behave-test:
-	curl -w "Response code: %{http_code}\n" 127.0.0.1:55080/behave-http
-	python setup.py behave_test --format progress3
+check-testserver:
+	curl -w "Response code: %{http_code}\n" $(TEST_SERVER)/behave-http
 
-#test-all:
-#	tox
+test-all:
+	tox
 
-coverage:
-	COVERAGE_PROCESS_START="yep" coverage run --branch --source='behave_http' $(BEHAVE) -q -f progress
+test: check-testserver
+	python setup.py behave_test -q --format progress3
+
+# These coverage rules can be optimized not to rerun if deps were not changed,
+# but that is an overkill for such a tiny test suite.
+test-coverage: check-testserver
+	# We really need a full path to 'behave' for coverage.py to work
+	$(eval BEHAVE := $(shell which behave))
+	COVERAGE_PROCESS_START="yep" coverage run --branch --source='behave_http' $(BEHAVE) -q -f progress3
+
+coverage-report: test-coverage
 	coverage report -m
+
+coverage-html: test-coverage
 	coverage html
 #	open htmlcov/index.html
+
+coverage: coverage-html coverage-report
 
 %.html: %.md
 	markdown $^ > $@
 
 docs: README.html
 
-release: clean
+release: lint test clean
 	python setup.py sdist upload
 	python setup.py bdist_wheel upload
 

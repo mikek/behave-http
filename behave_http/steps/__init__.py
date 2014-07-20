@@ -7,7 +7,7 @@ reset at the start of every scenario by environment.before_scenario.
 import behave
 import jpath
 import json
-from nose.tools import assert_equal, assert_in
+from ensure import ensure
 from purl import URL
 import requests
 import time
@@ -155,69 +155,68 @@ def store_for_template(context, jsonpath, variable):
 @behave.then('the variable "{variable}" should be "{value}"')
 @dereference_step_parameters_and_data
 def get_var(context, variable, value):
-    assert_equal(getattr(context, variable), value)
+    ensure(getattr(context, variable)).equals(value)
 
 
 @behave.then('the response status should be one of "{statuses}"')
 @dereference_step_parameters_and_data
 def response_status_in(context, statuses):
-    assert_in(context.response.status_code,
-              [int(s) for s in statuses.split(',')])
+    ensure(context.response.status_code).is_in(
+        [int(s) for s in statuses.split(',')])
 
 
 @behave.then('the response status should be {status}')
 @dereference_step_parameters_and_data
 def response_status(context, status):
-    assert_equal(context.response.status_code, int(status))
+    ensure(context.response.status_code).equals(int(status))
 
 
 @behave.then('the response body should contain "{content}"')
 @dereference_step_parameters_and_data
 def response_body_contains(context, content):
-    assert_in(content, context.response.content)
+    ensure(content).is_in(context.response.content)
 
 
 @behave.then('the "{var}" header should be "{value}"')
 @dereference_step_parameters_and_data
 def check_header_inline(context, var, value):
-    assert_equal(context.response.headers[var], value.encode('ascii'))
+    ensure(context.response.headers[var]).equals(value.encode('ascii'))
 
 
 @behave.then('the JSON should be')
 @dereference_step_parameters_and_data
 def json_should_be(context):
-    json_value = json.loads(context.data)
-    assert_equal(context.response.json(), json_value)
+    ensure(context.response.json()).equals(json.loads(context.data))
 
 
 @behave.then('the JSON array length at path "{jsonpath}" should be {value}')
 @dereference_step_parameters_and_data
 def json_array_len_at_path_inline(context, jsonpath, value):
     length = int(json.loads(value))
-    assert_equal(len(jpath.get(jsonpath, context.response.json())), length)
+    ensure(jpath.get(jsonpath, context.response.json())).has_length(length)
 
 
 @behave.then('the JSON at path "{jsonpath}" should be {value}')
 @dereference_step_parameters_and_data
 def json_at_path_inline(context, jsonpath, value):
     json_value = json.loads(value)
-    assert_equal(jpath.get(jsonpath, context.response.json()), json_value)
+    ensure(jpath.get(jsonpath, context.response.json())).equals(json_value)
 
 
 @behave.then('the JSON at path "{jsonpath}" should be')
 @dereference_step_parameters_and_data
 def json_at_path(context, jsonpath):
     json_value = json.loads(context.data)
-    assert_equal(jpath.get(jsonpath, context.response.json()), json_value)
+    ensure(jpath.get(jsonpath, context.response.json())).equals(json_value)
 
 
 @behave.then('the variable "{variable}" should be equal to JSON')
 @dereference_step_parameters_and_data
 def get_context_var_json_value(context, variable):
-    assert_equal(context.template_data[variable], json.loads(context.data))
+    ensure(context.template_data[variable]).equals(json.loads(context.data))
 
 
 @behave.then('the variable "{variable}" should be equal to JSON {value}')
 @dereference_step_parameters_and_data
 def get_context_var_json_value_inline(context, variable, value):
-    assert_equal(context.template_data[variable], json.loads(value))
+    ensure(context.template_data[variable]).equals(json.loads(value))
