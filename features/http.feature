@@ -27,23 +27,23 @@ Feature: HTTP requests
   Scenario: Test POST request by checking we get the same JSON payload back
     When I make a POST request to "post/mirror/json"
     """
-    {"title": "Some title", "nested": {"number": 42}, "array": [1, 2, 3]}
+    {"titlé": "Some titlé", "level1": {"number": 42}, "array": [1, 2, 3]}
     """
     Then the response status should be 201
     And the JSON should be
     """
-    {"title": "Some title", "nested": {"number": 42}, "array": [1, 2, 3]}
+    {"titlé": "Some titlé", "level1": {"number": 42}, "array": [1, 2, 3]}
     """
 
   Scenario: Test JSON path expection
     When I make a POST request to "post/mirror/json"
     """
-    {"nested": {"number": 42}, "array": []}
+    {"level1": {"level2": {"numbér": 42}}, "array": []}
     """
     Then the response status should be 201
-    And the JSON at path "nested" should be
+    And the JSON at path "level1.level2" should be
     """
-    {"number": 42}
+    {"numbér": 42}
     """
 
   Scenario: Test JSON array length calculation
@@ -57,19 +57,19 @@ Feature: HTTP requests
   Scenario: Test storing item from JSON response in variable
     When I make a POST request to "post/mirror/json"
     """
-    {"title": "Some title", "nested": {"number": 42}, "array": [1, 2, 3]}
+    {"title": "Some titlé", "level1": {"number": 42}, "array": [1, 2, 3]}
     """
     Then the response status should be 201
-    When I store the JSON at path "nested" in "nested"
-    Then the variable "nested" should be equal to JSON
+    When I store the JSON at path "level1" in "level1"
+    Then the variable "level1" should be equal to JSON
     """
     {"number": 42}
     """
-    And the variable "nested" should be equal to JSON {"number": 42}
-    When I store the JSON at path "nested.number" in "number"
+    And the variable "level1" should be equal to JSON {"number": 42}
+    When I store the JSON at path "level1.number" in "number"
     Then the variable "number" should be equal to JSON 42
     When I store the JSON at path "title" in "title"
-    Then the variable "title" should be equal to JSON "Some title"
+    Then the variable "title" should be equal to JSON "Some titlé"
     When I store the JSON at path "array" in "array"
     Then the variable "array" should be equal to JSON [1, 2, 3]
 
@@ -81,7 +81,7 @@ Feature: HTTP requests
   Scenario: Test PUT request by checking we get the same revision back
     When I make a PUT request to "put/json"
     """
-    {"rev": 2, "id": "foo"}
+    {"rev": 2, "id": "foö"}
     """
     Then the response status should be 200
     And the JSON at path "rev" should be 2
@@ -105,11 +105,11 @@ Feature: HTTP requests
     And the response body should contain "X-Foo: bar"
 
   Scenario: Test GET request to URL with query string
-    When I make a GET request to "get/args-to-json?foo=Some foo&bar=chocolate"
+    When I make a GET request to "get/args-to-json?foö=Some foö&bar=chocolate"
     Then the response status should be 200
     And the JSON should be
     """
-    {"foo": "Some foo", "bar": "chocolate"}
+    {"foö": "Some foö", "bar": "chocolate"}
     """
 
   Scenario: Test multiple expected response statuses
