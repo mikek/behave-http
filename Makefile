@@ -10,7 +10,7 @@ help:
 	@echo "clean - two above and coverage reports"
 	@echo "lint - check style with flake8"
 	@echo "test - run tests quickly with the default Python"
-	@echo "test-all - run tests on every Python version with tox"
+	@echo "test-all - run tests on every supported Python version with tox"
 	@echo "test-coverage - check code coverage while running tests with the default Python"
 	@echo "coverage - run 'test-coverage', show report and generate html"
 	@echo "docs - generate README.HTML from README.md"
