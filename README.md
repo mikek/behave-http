@@ -49,6 +49,9 @@ General rules on using quoted `"values"` in feature files:
 While there is no extensive documentation the *features* (self tests) directory
 contains (a hopefully complete) set of usage examples.
 
+*Testing for nested JSON content with non-ASCII characters in paths is not
+supported by the underlying `jpath` library.*
+
 ## Development
 
 Check out `requirements_dev.txt`. At least be sure to install Flask. Optional
