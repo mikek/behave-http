@@ -39,7 +39,7 @@ install_requires = [
     'behave>=1.2.4',
     'decorator>=3.4.0',
     'Jinja2==2.6',
-    'jpath==1.2',
+    'jpath==1.5',
     'ensure>=0.2.1',
     'purl>=0.8',
     'requests>=2.3.0,<2.4',
