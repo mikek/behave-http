@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import decorator
 import jinja2
 import os
@@ -22,9 +23,9 @@ def _render_parameters_with_context(context, params):
 
 def _get_data_from_context(context):
     """Use context.text as a template and render against any stored state."""
-    data = context.text if context.text else u''
+    data = context.text if context.text else ''
     # Always clear the text to avoid accidental re-use.
-    context.text = u''
+    context.text = ''
     # NB rendering the template always returns unicode.
     result = jinja2.Template(data).render(context.template_data)
     return result.encode('utf8')

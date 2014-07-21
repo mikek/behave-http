@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from flask import Flask, jsonify, make_response, request
 import os
 

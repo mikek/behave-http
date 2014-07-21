@@ -8,5 +8,5 @@ default_env = {
 
 
 def before_all(context):
-    for k, v in default_env.iteritems():
+    for k, v in default_env.items():
         os.environ.setdefault(k, v)

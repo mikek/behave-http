@@ -4,6 +4,7 @@ Some state is set-up and shared between steps using the context variable. It is
 reset at the start of every scenario by environment.before_scenario.
 
 """
+from __future__ import unicode_literals
 import behave
 import jpath
 import json
@@ -67,7 +68,7 @@ def set_var(context, variable, value):
     '"{jsonpath}" is')
 @dereference_step_parameters_and_data
 def poll_GET(context, url_path_segment, jsonpath):
-    json_value = json.loads(context.data)
+    json_value = json.loads(context.data.decode('utf-8'))
     url = append_path(context.server, url_path_segment)
     for i in range(context.n_attempts):
         response = requests.get(
@@ -174,19 +175,21 @@ def response_status(context, status):
 @behave.then('the response body should contain "{content}"')
 @dereference_step_parameters_and_data
 def response_body_contains(context, content):
-    ensure(content).is_in(context.response.content)
+    ensure(content).is_in(context.response.content.decode('utf-8'))
 
 
 @behave.then('the "{var}" header should be "{value}"')
 @dereference_step_parameters_and_data
 def check_header_inline(context, var, value):
-    ensure(context.response.headers[var]).equals(value.encode('ascii'))
+    ensure(context.response.headers[var].encode('ascii')).equals(
+        value.encode('ascii'))
 
 
 @behave.then('the JSON should be')
 @dereference_step_parameters_and_data
 def json_should_be(context):
-    ensure(context.response.json()).equals(json.loads(context.data))
+    ensure(context.response.json()).equals(
+        json.loads(context.data.decode('utf-8')))
 
 
 @behave.then('the JSON array length at path "{jsonpath}" should be {value}')
@@ -206,14 +209,15 @@ def json_at_path_inline(context, jsonpath, value):
 @behave.then('the JSON at path "{jsonpath}" should be')
 @dereference_step_parameters_and_data
 def json_at_path(context, jsonpath):
-    json_value = json.loads(context.data)
-    ensure(jpath.get(jsonpath, context.response.json())).equals(json_value)
+    ensure(jpath.get(jsonpath, context.response.json())).equals(
+        json.loads(context.data.decode('utf-8')))
 
 
 @behave.then('the variable "{variable}" should be equal to JSON')
 @dereference_step_parameters_and_data
 def get_context_var_json_value(context, variable):
-    ensure(context.template_data[variable]).equals(json.loads(context.data))
+    ensure(context.template_data[variable]).equals(
+        json.loads(context.data.decode('utf-8')))
 
 
 @behave.then('the variable "{variable}" should be equal to JSON {value}')
