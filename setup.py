@@ -55,9 +55,6 @@ setup(
     setup_requires=setup_requires,
     install_requires=install_requires,
     tests_require=tests_require,
-    extras_require={
-        'testing': tests_require,
-    },
     cmdclass={
         'behave_test': CustomBehaveTest,
     },
