@@ -3,6 +3,8 @@ import os
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
+import behave_http
+
 # Gotcha: setuptools_behave module is unavailable before 'setup.py install'
 try:
     from setuptools_behave import behave_test as BehaveTest
@@ -50,7 +52,7 @@ tests_require = ['flask']
 
 setup(
     name='behave-http',
-    version='0.0.1',
+    version=behave_http.__version__,
     packages=['behave_http', 'behave_http.steps'],
     setup_requires=setup_requires,
     install_requires=install_requires,
@@ -61,11 +63,12 @@ setup(
     description="Behave HTTP steps",
     long_description=long_description,
     url='https://github.com/mikek/behave-http',
-    author='Mikhail Kolesnik',
+    author='Mykhailo Kolesnyk',
     author_email='mike@openbunker.org',
     license='BSD 2-Clause',
     classifiers=[
-        'Programming Language :: Python'
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
