@@ -33,7 +33,7 @@ except ImportError:
 # an overkill. And Markdown has more awesomeness.
 long_description = open('README.md', 'r').read()
 
-setup_requires = []
+setup_requires = ['wheel']
 
 install_requires = [
     'behave>=1.2.4',
