@@ -31,9 +31,10 @@ except ImportError:
         description = "Dummy behave test command used before setup.py install"
 
 
-# Installing pandoc just to convert Markdown to reStructuredText seems to be
-# an overkill. And Markdown has more awesomeness.
-long_description = open('README.md', 'r').read()
+# PyPI nicely renders reStructuredText.
+# Markdown is easier to use, but installing pandoc just to convert Markdown to
+# reStructuredText seems to be an overkill.
+long_description = open('README.rst', 'r').read()
 
 setup_requires = ['wheel']
 

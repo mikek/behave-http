@@ -13,7 +13,7 @@ help:
 	@echo "test-all - run tests on every supported Python version with tox"
 	@echo "test-coverage - check code coverage while running tests with the default Python"
 	@echo "coverage - run 'test-coverage', show report and generate html"
-	@echo "docs - generate README.HTML from README.md"
+	@echo "docs - generate README.html from README.rst"
 	@echo "release - package and upload a release"
 	@echo "dist - package"
 
@@ -62,8 +62,8 @@ coverage-html: test-coverage
 
 coverage: coverage-html coverage-report
 
-%.html: %.md
-	markdown $^ > $@
+%.html: %.rst
+	rst2html.py $^ > $@
 
 docs: README.html
 
