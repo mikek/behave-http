@@ -41,15 +41,17 @@ setup_requires = ['wheel']
 install_requires = [
     'behave>=1.2.4',
     'decorator>=3.4.0',
-    'Jinja2==2.6',
-    'jpath==1.5',
-    'ensure>=0.2.1',
-    'purl>=0.8',
-    'requests>=2.3.0,<2.4',
+    'Jinja2>=2.5',
+    'jpath>=1.1',
+    'ensure>=0.1.6',
+    'purl>=0.6',
+    'requests>=2.0.0',
 ]
 
 # Flask is required for running test webserver
-tests_require = ['flask']
+tests_require = [
+    'flask>=0.10',
+]
 
 setup(
     name='behave-http',

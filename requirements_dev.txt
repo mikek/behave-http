@@ -7,7 +7,7 @@
 #-e https://github.com/foo/bar.git#egg=bar
 
 # Install what is needed for running tests
-flask
+flask>=0.10
 tox
 
 # Install the package itself with all it's deps listed in setup.py
