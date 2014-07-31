@@ -71,7 +71,7 @@ of develoipment tools can be installed via:
 
 ::
 
-    pip install coveralls flake8 tox wheel
+    pip install coveralls docutils flake8 tox wheel
 
 Running tests
 ~~~~~~~~~~~~~
