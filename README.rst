@@ -110,7 +110,7 @@ file).
 
 .. [1] https://bitbucket.org/tcorbettclark/rest-api-blueprint
 
-.. |Build Status| image:: https://travis-ci.org/mikek/behave-http.svg?branch=master
+.. |Build Status| image:: http://img.shields.io/travis/mikek/behave-http/master.svg
    :target: https://travis-ci.org/mikek/behave-http
-.. |Coverage Status| image:: https://img.shields.io/coveralls/mikek/behave-http.svg
+.. |Coverage Status| image:: http://img.shields.io/coveralls/mikek/behave-http/master.svg
    :target: https://coveralls.io/r/mikek/behave-http?branch=master
