@@ -40,7 +40,6 @@ setup_requires = ['wheel']
 
 install_requires = [
     'behave>=1.2.4',
-    'decorator>=3.4.0',
     'Jinja2>=2.5',
     'jpath>=1.1',
     'ensure>=0.1.6',

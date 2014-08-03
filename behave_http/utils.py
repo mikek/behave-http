@@ -1,24 +1,8 @@
 from __future__ import unicode_literals
-import decorator
+from functools import wraps
 import jinja2
 import os
 from purl import URL
-
-
-def _decode_parameter(value):
-    """Get BDD step parameter, redirecting to env var if start with $."""
-    if value.startswith('$'):
-        return os.environ.get(value[1:], '')
-    else:
-        return value
-
-
-def _render_parameters_with_context(context, params):
-    rendered_params = []
-    for param in params:
-        rendered_params.append(
-            jinja2.Template(param).render(context.template_data))
-    return rendered_params
 
 
 def _get_data_from_context(context):
@@ -31,8 +15,7 @@ def _get_data_from_context(context):
     return result.encode('utf8')
 
 
-@decorator.decorator
-def dereference_step_parameters_and_data(f, context, *params):
+def dereference_step_parameters_and_data(f):
     """Decorator to dereference step parameters and data.
 
     This involves three steps:
@@ -47,10 +30,17 @@ def dereference_step_parameters_and_data(f, context, *params):
         context.template_data, and putting the result in context.data.
 
     """
-    rendered_params = _render_parameters_with_context(context, params)
-    decoded_params = map(_decode_parameter, rendered_params)
-    context.data = _get_data_from_context(context)
-    f(context, *decoded_params)
+    @wraps(f)
+    def wrapper(context, **kwargs):
+        decoded_kwargs = {}
+        for key, value in kwargs.items():
+            value = jinja2.Template(value).render(context.template_data)
+            if value.startswith('$'):
+                value = os.environ.get(value[1:], '')
+            decoded_kwargs[key] = value
+        context.data = _get_data_from_context(context)
+        return f(context, **decoded_kwargs)
+    return wrapper
 
 
 def append_path(url, url_path_segment):
