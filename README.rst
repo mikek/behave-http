@@ -65,9 +65,14 @@ not supported by the underlying ``jpath`` library.*
 Development
 -----------
 
-Check out ``requirements_dev.txt`` for a list of essential development
-dependencies. At least be sure to install Flask. More or less complete list
-of develoipment tools can be installed via:
+To install essential packages for the test suite:
+
+::
+
+    pip install -r requirements_dev.txt
+
+A complete list of development tools used in the ``Makefile`` can be installed
+with:
 
 ::
 
