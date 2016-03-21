@@ -20,6 +20,10 @@ Feature: HTTP requests
     When I make a GET request to "get"
     Then the response status should be 200
 
+  Scenario: Test GET request with full path
+    When I make a GET request to "/test/get"
+    Then the response status should be 200
+
   Scenario: Test POST request
     When I make a POST request to "post"
     Then the response status should be 204
