@@ -28,6 +28,11 @@ def test_get():
     return make_response(jsonify({}))
 
 
+@app.route('/different-prefix/get', methods=['GET'])
+def test_get_another_prefix():
+    return make_response("different prefix", 200)
+
+
 @app.route('/test/post', methods=['POST'])
 def test_post():
     return make_response('', 204)

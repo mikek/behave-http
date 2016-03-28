@@ -21,8 +21,9 @@ Feature: HTTP requests
     Then the response status should be 200
 
   Scenario: Test GET request with full path
-    When I make a GET request to "/test/get"
+    When I make a GET request to "/different-prefix/get"
     Then the response status should be 200
+    And the response body should contain "different prefix"
 
   Scenario: Test POST request
     When I make a POST request to "post"
