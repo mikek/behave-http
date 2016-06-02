@@ -132,3 +132,11 @@ Feature: HTTP requests
     Given I set BasicAuth username to "test-user" and password to "test-password"
     When I make a GET request to "get/basic-auth"
     Then the response status should be 200
+
+  Scenario: Test certificate is not checked
+    Given I am using server "https://expired.identrustssl.com"
+    And I set "Accept" header to "application/json"
+    And I set "Content-Type" header to "application/json"
+    And I do not want to verify server certificate
+    When I make a GET request to "/"
+    Then the response status should be 200
