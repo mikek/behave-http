@@ -62,6 +62,11 @@ def header_oauth(context, key, secret):
 def set_var(context, variable, value):
     setattr(context, variable, json.loads(value))
 
+@behave.given('I do not want to verify server certificate')
+@dereference_step_parameters_and_data
+def do_not_verify_ssl(context):
+    context.verify_ssl = False
+
 
 @behave.when(
     'I keep sending GET requests to "{url_path_segment}" until JSON at path '
@@ -72,7 +77,8 @@ def poll_GET(context, url_path_segment, jsonpath):
     url = append_path(context.server, url_path_segment)
     for i in range(context.n_attempts):
         response = requests.get(
-            url, headers=context.headers, auth=context.auth)
+            url, headers=context.headers, auth=context.auth,
+            verify=context.verify_ssl)
         if jpath.get(jsonpath, response.json()) == json_value:
             context.response = response
             return
@@ -87,7 +93,8 @@ def poll_GET(context, url_path_segment, jsonpath):
 def head_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
     context.response = requests.head(
-        url, headers=context.headers, auth=context.auth)
+        url, headers=context.headers, auth=context.auth,
+        verify=context.verify_ssl)
 
 
 @behave.when('I make an OPTIONS request to "{url_path_segment}"')
@@ -95,7 +102,8 @@ def head_request(context, url_path_segment):
 def options_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
     context.response = requests.options(
-        url, headers=context.headers, auth=context.auth)
+        url, headers=context.headers, auth=context.auth,
+        verify=context.verify_ssl)
 
 
 @behave.when('I make a TRACE request to "{url_path_segment}"')
@@ -103,7 +111,8 @@ def options_request(context, url_path_segment):
 def trace_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
     context.response = requests.request(
-        'TRACE', url, headers=context.headers, auth=context.auth)
+        'TRACE', url, headers=context.headers, auth=context.auth,
+        verify=context.verify_ssl)
 
 
 @behave.when('I make a PATCH request to "{url_path_segment}"')
@@ -111,7 +120,8 @@ def trace_request(context, url_path_segment):
 def patch_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
     context.response = requests.patch(
-        url, data=context.data, headers=context.headers, auth=context.auth)
+        url, data=context.data, headers=context.headers, auth=context.auth,
+        verify=context.verify_ssl)
 
 
 @behave.when('I make a PUT request to "{url_path_segment}"')
@@ -119,7 +129,8 @@ def patch_request(context, url_path_segment):
 def put_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
     context.response = requests.put(
-        url, data=context.data, headers=context.headers, auth=context.auth)
+        url, data=context.data, headers=context.headers, auth=context.auth,
+        verify=context.verify_ssl)
 
 
 @behave.when('I make a POST request to "{url_path_segment}"')
@@ -127,7 +138,8 @@ def put_request(context, url_path_segment):
 def post_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
     context.response = requests.post(
-        url, data=context.data, headers=context.headers, auth=context.auth)
+        url, data=context.data, headers=context.headers, auth=context.auth,
+        verify=context.verify_ssl)
 
 
 @behave.when('I make a GET request to "{url_path_segment}"')
@@ -135,7 +147,8 @@ def post_request(context, url_path_segment):
 def get_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
     context.response = requests.get(
-        url, headers=context.headers, auth=context.auth)
+        url, headers=context.headers, auth=context.auth,
+        verify=context.verify_ssl)
 
 
 @behave.when('I make a DELETE request to "{url_path_segment}"')
@@ -143,7 +156,8 @@ def get_request(context, url_path_segment):
 def delete_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
     context.response = requests.delete(
-        url, headers=context.headers, auth=context.auth)
+        url, headers=context.headers, auth=context.auth,
+        verify=context.verify_ssl)
 
 
 @behave.when('I store the JSON at path "{jsonpath}" in "{variable}"')
