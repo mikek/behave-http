@@ -135,8 +135,6 @@ Feature: HTTP requests
 
   Scenario: Test certificate is not checked
     Given I am using server "https://expired.identrustssl.com"
-    And I set "Accept" header to "application/json"
-    And I set "Content-Type" header to "application/json"
     And I do not want to verify server certificate
     When I make a GET request to "/"
     Then the response status should be 200
