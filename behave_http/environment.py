@@ -12,5 +12,5 @@ def before_scenario(context, scenario):
     # Do not authenticate by default.
     context.auth = None
 
-    # verify server certificate by default
+    # Verify server certificate by default.
     context.verify_ssl = True

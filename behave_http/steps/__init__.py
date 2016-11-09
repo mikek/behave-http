@@ -62,6 +62,7 @@ def header_oauth(context, key, secret):
 def set_var(context, variable, value):
     setattr(context, variable, json.loads(value))
 
+
 @behave.given('I do not want to verify server certificate')
 @dereference_step_parameters_and_data
 def do_not_verify_ssl(context):

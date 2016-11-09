@@ -133,7 +133,7 @@ Feature: HTTP requests
     When I make a GET request to "get/basic-auth"
     Then the response status should be 200
 
-  Scenario: Test certificate is not checked
+  Scenario: Test certificate is not verified
     Given I am using server "https://expired.identrustssl.com"
     And I do not want to verify server certificate
     When I make a GET request to "/"
