@@ -7,7 +7,12 @@
 #-e https://github.com/foo/bar.git#egg=bar
 
 # Install what is needed for running tests
-flask>=0.10
+
+# Pin specific Flask and Werkzeug versions to make sure tests are running
+# reliably against test server code that is known to work.
+Flask==0.11.1
+Werkzeug==0.11.11
+
 tox
 
 # Install the package itself with all it's deps listed in setup.py
