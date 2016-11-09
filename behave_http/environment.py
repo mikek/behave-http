@@ -9,5 +9,5 @@ def before_scenario(context, scenario):
     context.n_attempts = 10
     context.pause_between_attempts = 0.05
 
-    # Do not authenticate by dafault
+    # Do not authenticate by default.
     context.auth = None
