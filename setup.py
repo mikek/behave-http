@@ -19,7 +19,7 @@ install_requires = [
 
 setup(
     name='behave-http',
-    version='0.1.0',
+    version='0.1.1',
     packages=['behave_http', 'behave_http.steps'],
     setup_requires=setup_requires,
     install_requires=install_requires,
