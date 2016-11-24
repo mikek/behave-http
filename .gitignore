@@ -1,5 +1,5 @@
-*.pyc
-*.pyo
+__pycache__/
+*.py[cod]
 *.egg-info
 setuptools-*
 *.egg
