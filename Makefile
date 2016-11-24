@@ -21,6 +21,7 @@ clean: clean-build clean-pyc
 	rm -fr htmlcov/
 	rm -f .coverage
 	rm -fr .tox
+	rm -f *.html
 
 clean-build:
 	rm -fr build/
@@ -65,7 +66,7 @@ coverage: coverage-html coverage-report
 %.html: %.rst
 	rst2html.py $^ > $@
 
-docs: README.html
+docs: CHANGELOG.html README.html
 
 release: lint test clean
 	python setup.py sdist upload

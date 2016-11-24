@@ -8,4 +8,5 @@ setuptools-*
 /dist/
 .coverage
 htmlcov
+CHANGELOG.html
 README.html
