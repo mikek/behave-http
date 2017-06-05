@@ -16,6 +16,14 @@ import time
 from behave_http.utils import dereference_step_parameters_and_data, append_path
 
 
+def get_requests(context):
+    try:
+        return context.session
+    except AttributeError as e:
+        context.session = requests.Session()
+    return context.session
+
+
 @behave.given('I am using server "{server}"')
 @dereference_step_parameters_and_data
 def using_server(context, server):
@@ -77,7 +85,7 @@ def poll_GET(context, url_path_segment, jsonpath):
     json_value = json.loads(context.data.decode('utf-8'))
     url = append_path(context.server, url_path_segment)
     for i in range(context.n_attempts):
-        response = requests.get(
+        response = get_requests(context).get(
             url, headers=context.headers, auth=context.auth,
             verify=context.verify_ssl)
         if jpath.get(jsonpath, response.json()) == json_value:
@@ -93,7 +101,7 @@ def poll_GET(context, url_path_segment, jsonpath):
 @dereference_step_parameters_and_data
 def head_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
-    context.response = requests.head(
+    context.response = get_requests(context).head(
         url, headers=context.headers, auth=context.auth,
         verify=context.verify_ssl)
 
@@ -102,7 +110,7 @@ def head_request(context, url_path_segment):
 @dereference_step_parameters_and_data
 def options_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
-    context.response = requests.options(
+    context.response = get_requests(context).options(
         url, headers=context.headers, auth=context.auth,
         verify=context.verify_ssl)
 
@@ -111,7 +119,7 @@ def options_request(context, url_path_segment):
 @dereference_step_parameters_and_data
 def trace_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
-    context.response = requests.request(
+    context.response = get_requests(context).request(
         'TRACE', url, headers=context.headers, auth=context.auth,
         verify=context.verify_ssl)
 
@@ -120,7 +128,7 @@ def trace_request(context, url_path_segment):
 @dereference_step_parameters_and_data
 def patch_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
-    context.response = requests.patch(
+    context.response = get_requests(context).patch(
         url, data=context.data, headers=context.headers, auth=context.auth,
         verify=context.verify_ssl)
 
@@ -129,7 +137,7 @@ def patch_request(context, url_path_segment):
 @dereference_step_parameters_and_data
 def put_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
-    context.response = requests.put(
+    context.response = get_requests(context).put(
         url, data=context.data, headers=context.headers, auth=context.auth,
         verify=context.verify_ssl)
 
@@ -138,7 +146,7 @@ def put_request(context, url_path_segment):
 @dereference_step_parameters_and_data
 def post_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
-    context.response = requests.post(
+    context.response = get_requests(context).post(
         url, data=context.data, headers=context.headers, auth=context.auth,
         verify=context.verify_ssl)
 
@@ -147,7 +155,7 @@ def post_request(context, url_path_segment):
 @dereference_step_parameters_and_data
 def get_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
-    context.response = requests.get(
+    context.response = get_requests(context).get(
         url, headers=context.headers, auth=context.auth,
         verify=context.verify_ssl)
 
@@ -156,7 +164,7 @@ def get_request(context, url_path_segment):
 @dereference_step_parameters_and_data
 def delete_request(context, url_path_segment):
     url = append_path(context.server, url_path_segment)
-    context.response = requests.delete(
+    context.response = get_requests(context).delete(
         url, headers=context.headers, auth=context.auth,
         verify=context.verify_ssl)
 
