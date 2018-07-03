@@ -9,7 +9,6 @@ import behave
 import jpath
 import json
 from ensure import ensure
-from purl import URL
 import requests
 import time
 from six.moves import urllib
