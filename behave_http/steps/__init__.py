@@ -12,6 +12,7 @@ from ensure import ensure
 from purl import URL
 import requests
 import time
+from six.moves import urllib
 
 from behave_http.utils import dereference_step_parameters_and_data, append_path
 
@@ -27,13 +28,13 @@ def get_requests(context):
 @behave.given('I am using server "{server}"')
 @dereference_step_parameters_and_data
 def using_server(context, server):
-    context.server = URL(server)
+    context.server = server
 
 
 @behave.given('I set base URL to "{base_url}"')
 @dereference_step_parameters_and_data
 def set_base_url(context, base_url):
-    context.server = context.server.add_path_segment(base_url)
+    context.server = urllib.urljoin(context.server, base_url)
 
 
 @behave.given('I set "{var}" header to "{value}"')

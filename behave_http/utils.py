@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from functools import wraps
 import jinja2
 import os
-from purl import URL
+from six.moves import urllib
 
 
 def _get_data_from_context(context):
@@ -44,11 +44,4 @@ def dereference_step_parameters_and_data(f):
 
 
 def append_path(url, url_path):
-    target = URL(url_path)
-    if url_path.startswith('/'):
-        url = url.path(target.path())
-    else:
-        url = url.add_path_segment(target.path())
-    if target.query():
-        url = url.query(target.query())
-    return url.as_string()
+    return urllib.parse.urljoin(url, url_path)

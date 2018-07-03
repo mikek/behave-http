@@ -13,8 +13,8 @@ install_requires = [
     'Jinja2>=2.5',
     'jpath>=1.1',
     'ensure>=0.1.6',
-    'purl>=0.6',
     'requests>=2.0.0',
+    'six',
 ]
 
 setup(
