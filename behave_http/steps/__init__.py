@@ -33,7 +33,7 @@ def using_server(context, server):
 @behave.given('I set base URL to "{base_url}"')
 @dereference_step_parameters_and_data
 def set_base_url(context, base_url):
-    context.server = urllib.urljoin(context.server, base_url)
+    context.server = urllib.parse.urljoin(context.server, base_url)
 
 
 @behave.given('I set "{var}" header to "{value}"')
