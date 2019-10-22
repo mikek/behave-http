@@ -11,7 +11,7 @@
 # Pin specific Flask and Werkzeug versions to make sure tests are running
 # reliably against test server code that is known to work.
 Flask==0.11.1
-Werkzeug==0.11.11
+Werkzeug==0.15.3
 
 tox
 
