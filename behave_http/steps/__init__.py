@@ -68,7 +68,8 @@ def header_oauth(context, key, secret):
 @behave.given('I set variable "{variable}" to {value}')
 @dereference_step_parameters_and_data
 def set_var(context, variable, value):
-    setattr(context, variable, json.loads(value))
+    #setattr(context, variable, json.loads(value))
+    context.template_data[variable] = json.loads(value)
 
 
 @behave.given('I do not want to verify server certificate')
@@ -179,7 +180,8 @@ def store_for_template(context, jsonpath, variable):
 @behave.then('the variable "{variable}" should be "{value}"')
 @dereference_step_parameters_and_data
 def get_var(context, variable, value):
-    ensure(getattr(context, variable)).equals(value)
+    #ensure(getattr(context, variable)).equals(value)
+    ensure(context.template_data[variable]).equals(value)
 
 
 @behave.then('the response status should be one of "{statuses}"')
