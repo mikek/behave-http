@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from functools import wraps
 import jinja2
 import os
-from purl import URL
+from six.moves import urllib
 
 
 def _get_data_from_context(context):
@@ -20,11 +20,13 @@ def dereference_step_parameters_and_data(f):
 
     This involves three steps:
 
-        1) Rendering feature file step parameters as a Jinja2 template against
-        context.template_data.
+        1) Rendering feature file step parameters as a Jinja2 template
+        against context.template_data.
 
-        2) Replacing step parameters with environment variable values if they
-        look like an environment variable (start with a "$").
+        2) Replacing step parameters with environment variable values
+        if they look like an environment variable (start with a
+        "$"). Fall back to original value if environment variable does
+        not exist.
 
         3) Treating context.text as a Jinja2 template rendered against
         context.template_data, and putting the result in context.data.
@@ -36,7 +38,7 @@ def dereference_step_parameters_and_data(f):
         for key, value in kwargs.items():
             value = jinja2.Template(value).render(context.template_data)
             if value.startswith('$'):
-                value = os.environ.get(value[1:], '')
+                value = os.environ.get(value[1:], value)
             decoded_kwargs[key] = value
         context.data = _get_data_from_context(context)
         return f(context, **decoded_kwargs)
@@ -44,11 +46,4 @@ def dereference_step_parameters_and_data(f):
 
 
 def append_path(url, url_path):
-    target = URL(url_path)
-    if url_path.startswith('/'):
-        url = url.path(target.path())
-    else:
-        url = url.add_path_segment(target.path())
-    if target.query():
-        url = url.query(target.query())
-    return url.as_string()
+    return urllib.parse.urljoin(url, url_path)
